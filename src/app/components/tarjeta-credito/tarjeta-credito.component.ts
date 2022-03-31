@@ -37,7 +37,15 @@ export class TarjetaCreditoComponent implements OnInit {
     this.listTarjetas.unshift(tarjeta);
     this.toastr.success('La tarjeta fue registrada con éxito!', 'Tarjeta Registrada!',{
       timeOut:3000,
+      positionClass: 'toast-top-right',
     });
     this.form.reset();
+  }
+  eliminarTarjeta(index:number){
+    this.listTarjetas.splice(index, 1);
+    this.toastr.error('La tarjeta fue eliminada con éxito!', 'Tarjeta Eliminada!'),{
+      timeOut:3000,
+      positionClass: 'toast-top-right',
+    };
   }
 }
