@@ -1,1 +1,80 @@
-<p>tarjeta-credito works!</p>
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-lg-8 offset-lg-2">
+      <div class="card">
+        <div class="card-body">
+          <h3 class="tittle">Tarjeta de Crédito</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <div class="col-lg-6">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="tittle">Agregar Tarjeta</h5>
+          <form>
+            <div class="input-group input-group-lg mb-3">
+              <span class="input-group-text"
+                ><i class="fa-regular fa-user"></i
+              ></span>
+              <input type="text" class="form-control" placeholder="Titular" />
+            </div>
+            <div class="input-group input-group-lg mb-3">
+              <span class="input-group-text"
+                ><i class="fa-regular fa-credit-card"></i
+              ></span>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Numero Tarjeta"
+              />
+            </div>
+            <div class="row">
+              <div class="col-lg-7">
+                <div class="input-group input-group-lg mb-3">
+                  <span class="input-group-text"
+                    ><i class="fa-regular fa-calendar-days"></i
+                  ></span>
+                  <input type="text" class="form-control" placeholder="MM/YY" />
+                </div>
+              </div>
+              <div class="col-lg-5">
+                <div class="input-group input-group-lg mb-3">
+                  <span class="input-group-text"
+                    ><i class="fa-solid fa-key"></i
+                  ></span>
+                  <input type="text" class="form-control" placeholder="CVV" />
+                </div>
+              </div>
+            </div>
+            <div class="d-grid">
+              <button type="submit" class="btn btn-success btn-lg">
+                <i class="fa-solid fa-database"></i>&nbsp; Aceptar
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="tittle">Listar Tarjeta</h5>
+          <table class="table">
+            <tbody>
+              <tr *ngFor="let tarjeta of listTarjetas">
+                <td>{{ tarjeta.titular }}</td>
+                <td>{{ tarjeta.numeroTarjeta }}</td>
+                <td>{{ tarjeta.fechaExpiracion }}</td>
+                <td><i class="fa-regular fa-pen-to-square text-info"></i></td>
+                <td><i class="fa-regular fa-trash-can text-danger"></i></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
