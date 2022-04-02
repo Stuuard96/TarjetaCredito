@@ -20,4 +20,7 @@ private myApiUrl='api/tarjeta/'
   saveTarjetas(tarjeta: any):Observable<any>{
     return this.http.post(this.myAppUrl + this.myApiUrl, tarjeta);
   }
+  updateTarjetas(id:number,tarjeta: any):Observable<any>{
+    return this.http.put(this.myAppUrl + this.myApiUrl + id, tarjeta);
+  }
 }

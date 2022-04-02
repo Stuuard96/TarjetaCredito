@@ -13,8 +13,8 @@
     <div class="col-lg-6">
       <div class="card">
         <div class="card-body">
-          <h5 class="tittle">Agregar Tarjeta</h5>
-          <form [formGroup]="form" (ngSubmit)="agregarTarjeta()">
+          <h5 class="tittle">{{ accion | uppercase }} TARJETA</h5>
+          <form [formGroup]="form" (ngSubmit)="guardarTarjeta()">
             <div class="input-group input-group-lg mb-3">
               <span class="input-group-text"
                 ><i
@@ -90,7 +90,7 @@
                     ></i
                   ></span>
                   <input
-                    type="text"
+                    type="password"
                     class="form-control"
                     formControlName="cvv"
                     placeholder="CVV"
@@ -115,14 +115,19 @@
     <div class="col-lg-6">
       <div class="card">
         <div class="card-body">
-          <h5 class="tittle">Listar Tarjeta</h5>
+          <h5 class="tittle">LISTAR TARJETA</h5>
           <table class="table">
             <tbody>
               <tr *ngFor="let tarjeta of listTarjetas">
                 <td>{{ tarjeta.titular }}</td>
                 <td>{{ tarjeta.numeroTarjeta }}</td>
                 <td>{{ tarjeta.fechaExpiracion }}</td>
-                <td><i class="fa-regular fa-pen-to-square text-info"></i></td>
+                <td>
+                  <i
+                    (click)="editarTarjeta(tarjeta)"
+                    class="fa-regular fa-pen-to-square text-info"
+                  ></i>
+                </td>
                 <td>
                   <i
                     (click)="eliminarTarjeta(tarjeta.id)"

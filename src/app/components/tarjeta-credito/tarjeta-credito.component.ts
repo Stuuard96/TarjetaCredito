@@ -10,8 +10,9 @@ import { TarjetaService } from 'src/app/services/tarjeta.service';
 })
 export class TarjetaCreditoComponent implements OnInit {
   listTarjetas: any[]=[];
-
+  accion ='Agregar'
   form: FormGroup;
+  id: number | undefined;
 
   constructor(private fb:FormBuilder, private toastr: ToastrService, private _tarjetaService:TarjetaService) {
     this.form=this.fb.group({
@@ -35,24 +36,40 @@ export class TarjetaCreditoComponent implements OnInit {
     });
   }
 
-  agregarTarjeta(){
+  guardarTarjeta(){
     const tarjeta: any={
       titular: this.form.get('titular')?.value,
       numeroTarjeta: this.form.get('numeroTarjeta')?.value,
       fechaExpiracion: this.form.get('fechaExpiracion')?.value,
       cvv: this.form.get('cvv')?.value,
     }
-    this._tarjetaService.saveTarjetas(tarjeta).subscribe(data=>{
-      this.toastr.success('La tarjeta fue registrada con éxito!', 'Tarjeta Registrada!',{
-        timeOut:3000,
-        positionClass: 'toast-top-right',
+
+    if(this.id==undefined){
+      //Agregamos una nueva tarjeta
+      this._tarjetaService.saveTarjetas(tarjeta).subscribe(data=>{
+        this.toastr.success('La tarjeta fue registrada con éxito!', 'Tarjeta Registrada!',{
+          timeOut:3000,
+          positionClass: 'toast-top-right',
+        });
+        this.obtenerTarjetas();
+        this.form.reset();
+      }, error=>{
+        this.toastr.error('Opss...Ocurrio un error','Error')
+        console.log(error);
       });
-      this.obtenerTarjetas();
-      this.form.reset();
-    }, error=>{
-      this.toastr.error('Opss...Ocurrio un error','Error')
-      console.log(error);
-    });
+    }else{
+      tarjeta.id=this.id;
+      //Editamos tarjeta
+      this._tarjetaService.updateTarjetas(this.id, tarjeta).subscribe(data=>{
+        this.form.reset();
+        this.accion = 'Agregar';
+        this.id = undefined;
+        this.toastr.info('La tarjeta fue actualizada con éxito!','Tarjeta Actualizada');
+        this.obtenerTarjetas();
+      },error=>{
+        console.log(error);
+      });
+    }
   }
   
   eliminarTarjeta(id:number){
@@ -65,5 +82,17 @@ export class TarjetaCreditoComponent implements OnInit {
     },error=>{
       console.log(error);
     })
+  }
+
+  editarTarjeta(tarjeta:any){
+    this.accion = 'Editar';
+    this.id = tarjeta.id;
+
+    this.form.patchValue({
+      titular:tarjeta.titular,
+      numeroTarjeta:tarjeta.numeroTarjeta,
+      fechaExpiracion:tarjeta.fechaExpiracion,
+      cvv: tarjeta.cvv
+    });
   }
 }
