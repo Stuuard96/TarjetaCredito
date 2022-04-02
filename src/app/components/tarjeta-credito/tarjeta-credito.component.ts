@@ -42,12 +42,17 @@ export class TarjetaCreditoComponent implements OnInit {
       fechaExpiracion: this.form.get('fechaExpiracion')?.value,
       cvv: this.form.get('cvv')?.value,
     }
-    this.listTarjetas.unshift(tarjeta);
-    this.toastr.success('La tarjeta fue registrada con éxito!', 'Tarjeta Registrada!',{
-      timeOut:3000,
-      positionClass: 'toast-top-right',
+    this._tarjetaService.saveTarjetas(tarjeta).subscribe(data=>{
+      this.toastr.success('La tarjeta fue registrada con éxito!', 'Tarjeta Registrada!',{
+        timeOut:3000,
+        positionClass: 'toast-top-right',
+      });
+      this.obtenerTarjetas();
+      this.form.reset();
+    }, error=>{
+      this.toastr.error('Opss...Ocurrio un error','Error')
+      console.log(error);
     });
-    this.form.reset();
   }
   
   eliminarTarjeta(id:number){

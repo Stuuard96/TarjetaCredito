@@ -17,4 +17,7 @@ private myApiUrl='api/tarjeta/'
   deleteTarjetas(id:number):Observable<any>{
     return this.http.delete(this.myAppUrl + this.myApiUrl + id);
   }
+  saveTarjetas(tarjeta: any):Observable<any>{
+    return this.http.post(this.myAppUrl + this.myApiUrl, tarjeta);
+  }
 }
