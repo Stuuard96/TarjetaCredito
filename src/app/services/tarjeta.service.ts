@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class TarjetaService {
-private myAppUrl='www.beapitarjetacredito.somee.com/'
+private myAppUrl='http://www.beapitarjetacredito.somee.com/'
 private myApiUrl='api/tarjeta/'
 
   constructor(private http:HttpClient) { }
